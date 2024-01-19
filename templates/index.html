@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>ANTHROSCORE: A Computational Linguistic Measure of Anthropomorphism</title>
+</head>
+<body>
+
+
+<div class="jumbotron">
+
+    <h1 class="display-4">ANTHROSCORE: A Computational Linguistic Measure of Anthropomorphism</h1>
+    <i class="lead">Myra Cheng, Kristina Gligoric, Tiziano Piccardi, Dan Jurafsky</i>
+    <hr class="my-4">
+    <blockquote class="blockquote">
+        <p class="small">Anthropomorphism, or the attribution of human-like characteristics to non-human entities, has
+            shaped conversations about the impacts and possibilities of technology.
+            We present ANTHROSCORE, an automatic metric of implicit anthropomorphism in language. We use a masked
+            language model to quantify how non-human entities are implicitly framed as human by the surrounding context.
+            We show that ANTHROSCORE corresponds with human judgments of anthropomorphism and dimensions of
+            anthropomorphism described in social science literature. Motivated by concerns of misleading
+            anthropomorphism in computer science discourse, we use ANTHROSCORE to analyze 15 years of research papers
+            and downstream news articles. In research papers, we find that anthropomorphism has steadily increased over
+            time, and that papers related to natural language processing (NLP) and language models have the most
+            anthropomorphism: entities in these papers are on average more likely to be implicitly framed as human than
+            as non-human. Within NLP papers, temporal increases in anthropomorphism are correlated with key neural
+            advancements.
+            Building upon concerns of scientific misinformation in mass media, we identify higher levels of
+            anthropomorphism in news headlines compared to the research papers they cite. Since ANTHROSCORE is
+            lexicon-free, it can be directly applied to a wide range of text sources.</p>
+    </blockquote>
+
+    <p>Full paper: <a href="#" target="_blank">Coming soon</a></p>
+    <p>Source code: <a href="https://github.com/myracheng/anthroscore" target="_blank">https://github.com/myracheng/anthroscore</a>
+    </p>
+
+</div>
+
+
+<hr>
+
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+            <form>
+                <div class="form-group row">
+                    <label for="main-text" class="col-sm-2 col-form-label h1">Your text</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="main-text" rows="3" placeholder="Add your text here..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="entities" class="col-sm-2 col-form-label h1">Entities (coma separated)</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="entities" placeholder="Entities" value="system, model">
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-primary" id="submit-text">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="row justify-content-center" style="margin-top: 30px;">
+    <div class="col-8">
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="output-text">
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="response" style="margin-left: 200px; margin-right: 200px">
+    <div id="predict_topic_response" class="alert alert-primary" role="alert"
+         style="display: none; margin-top: 30px; "></div>
+    <div id="topics_distribution_response" class="alert alert-light" role="alert" style="margin-top: 30px;">
+        <canvas id="topics_barplot" height="300"></canvas>
+    </div>
+</div>
+
+
+<hr>
+
+<br>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+
+<script>
+
+    $(function () {
+        $("#submit-text").click(function () {
+            $("#output-text").html("ANTHROSCORE: Loading...")
+            let text = $("#main-text").val()
+            let entities = $("#entities").val()
+
+            $.ajax({
+                type: "POST",
+                url: "/predict",
+                data: {text: text, entities: entities},
+                success: function (data) {
+                    $("#output-text").html("ANTHROSCORE: " + data)
+                }
+            });
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
