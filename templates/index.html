@@ -23,20 +23,47 @@
             anthropomorphism in computer science discourse, we use ANTHROSCORE to analyze 15 years of research papers
             and downstream news articles. In research papers, we find that anthropomorphism has steadily increased over
             time, and that papers related to natural language processing (NLP) and language models have the most
-            anthropomorphism: entities in these papers are on average more likely to be implicitly framed as human than
-            as non-human. Within NLP papers, temporal increases in anthropomorphism are correlated with key neural
+            anthropomorphism. Within NLP papers, temporal increases in anthropomorphism are correlated with key neural
             advancements.
             Building upon concerns of scientific misinformation in mass media, we identify higher levels of
             anthropomorphism in news headlines compared to the research papers they cite. Since ANTHROSCORE is
             lexicon-free, it can be directly applied to a wide range of text sources.</p>
     </blockquote>
-
     <p>Full paper: <a href="#" target="_blank">Coming soon</a></p>
     <p>Source code: <a href="https://github.com/myracheng/anthroscore" target="_blank">https://github.com/myracheng/anthroscore</a>
     </p>
 
-</div>
-
+    <img src="templates/methodfig.png"/>
+    
+    <h3>Example Sentences</h3>
+<style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;
+          overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;
+          font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-fymr">S↑: Sentences with high ANTHROSCORE (A &gt; 1) </th>
+            <th class="tg-0pky"><span style="font-weight:bold;font-style:normal">S↓: Sentences with low ANTHROSCORE (A &lt; −1)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-0pky">• Catastrophic forgetting refers to the tendency that a neural <span style="font-weight:bold">network</span> "forgets" the previous learned knowledge upon learning new tasks.<br>• Meanwhile, anti-forensic attacks have been developed to fool these CNN-based forensic <span style="font-weight:bold">algorithms</span>.<br>• The <span style="font-weight:bold">models</span> demonstrated qualifications in various computer-related fields, such as cloud and virtualization, business analytics, cybersecurity, network setup...</td>
+            <td class="tg-0pky">• More and more users and developers are using Issue Tracking <span style="font-weight:bold">Systems</span> to report issues, including bugs, featurerequests, enhancement suggestions, etc.<br>• Our<span style="font-weight:bold"> approach</span> delivers forecast improvements over a competitive benchmark and we discover evidence for strong spatial interactions.<br>• To this end, for training the<span style="font-weight:bold"> model</span>, we convert the knowledge graph triples into reasonable and unreasonable texts.</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky">• Large language <span style="font-weight:bold">models</span> don’t actually think and tend to make elementary mistakes, even make things up.<br>• The <span style="font-weight:bold">algorithms</span> also picked up on racial biases linking Black people to weapons.<br>• The AI <span style="font-weight:bold">system</span> was able to defeat human players in. . .</td>
+            <td class="tg-0pky">• Microsoft is betting heavily on integrating OpenAI’s GPT language <span style="font-weight:bold">models</span> into its products to compete with Google.<br>• Deepmind has been the pioneer in making AI <span style="font-weight:bold">models</span> that have the capability to mimic a human’s cognitive. . .<br>• For workers who use machine-learning <span style="font-weight:bold">models</span> to help them make decisions, knowing when to. . .</td>
+          </tr>
+        </tbody>
+        </table>
+   
 
 <hr>
 
@@ -76,6 +103,17 @@
 
 </div>
 
+
+<h3>Score Interpretation</h3>
+        
+The score <i>A</i> implies that the entity is e<sup><i>A</i></sup> times more likely to be implicitly
+framed as human than as non-human in the context of the sentence (e is the log
+base), e.g.: <br>
+<ul><li><i>A</i> = 0 means that the entity is equally
+likely to be implicitly framed as either human or
+non-human</li><li><i>A</i> = 1 means
+that the entity is e<sup>1</sup> ≈ 2.7 times more likely to be
+implicitly framed as human than as non-human</li></ul> 
 
 <div id="response" style="margin-left: 200px; margin-right: 200px">
     <div id="predict_topic_response" class="alert alert-primary" role="alert"
