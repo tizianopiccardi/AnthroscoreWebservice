@@ -99,7 +99,7 @@ def get_anthroscores(sentence_filename):
 
 def parse_sentences_from_file(input_filename, entities, text_column_name, id_column_name, output_filename):
     column_names = ['sentence','masked_sentence','text_id','POS','verb','original_term','original_noun']
-    pattern_list = ['\\b%s\\b'%s for s in entities] # add boundaries
+    pattern_list = ['%s(?=s| |$|\W)'%s for s in entities] # add boundaries
 
     if input_filename.endswith('csv'):
         df = pd.read_csv(input_filename).dropna(subset=text_column_name)
@@ -132,7 +132,7 @@ def parse_sentences_from_file(input_filename, entities, text_column_name, id_col
 
 def get_text_score(text,entities,output_filename=''):
     # Mask sentences
-    pattern_list = ['\\b%s\\b'%s for s in entities] # add boundaries
+    pattern_list = ['%s(?=s| |$|\W)'%s for s in entities] # add boundaries
     masked_sents = []
     if text.strip():
         doc = nlp(text)

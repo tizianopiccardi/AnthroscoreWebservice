@@ -3,37 +3,43 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title>ANTHROSCORE: A Computational Linguistic Measure of Anthropomorphism</title>
+    <title>AnthroScore: A Computational Linguistic Measure of Anthropomorphism</title>
 </head>
 <body>
 
 
 <div class="jumbotron">
 
-    <h1 class="display-4">ANTHROSCORE: A Computational Linguistic Measure of Anthropomorphism</h1>
+    <h1 class="display-4">AnthroScore: A Computational Linguistic Measure of Anthropomorphism</h1>
     <i class="lead">Myra Cheng, Kristina Gligoric, Tiziano Piccardi, Dan Jurafsky</i>
     <hr class="my-4">
     <blockquote class="blockquote">
         <p class="small">Anthropomorphism, or the attribution of human-like characteristics to non-human entities, has
             shaped conversations about the impacts and possibilities of technology.
-            We present ANTHROSCORE, an automatic metric of implicit anthropomorphism in language. We use a masked
-            language model to quantify how non-human entities are implicitly framed as human by the surrounding context.
-            We show that ANTHROSCORE corresponds with human judgments of anthropomorphism and dimensions of
-            anthropomorphism described in social science literature. Motivated by concerns of misleading
-            anthropomorphism in computer science discourse, we use ANTHROSCORE to analyze 15 years of research papers
-            and downstream news articles. In research papers, we find that anthropomorphism has steadily increased over
-            time, and that papers related to natural language processing (NLP) and language models have the most
-            anthropomorphism. Within NLP papers, temporal increases in anthropomorphism are correlated with key neural
-            advancements.
-            Building upon concerns of scientific misinformation in mass media, we identify higher levels of
-            anthropomorphism in news headlines compared to the research papers they cite. Since ANTHROSCORE is
-            lexicon-free, it can be directly applied to a wide range of text sources.</p>
+            We present AnthroScore, an automatic metric of implicit anthropomorphism in language. AnthroScore is
+            lexicon-free and can be directly applied to a wide range of texts.</p>
+           
+            
     </blockquote>
-    <p>Full paper: <a href="#" target="_blank">Coming soon</a></p>
-    <p>Source code: <a href="https://github.com/myracheng/anthroscore" target="_blank">https://github.com/myracheng/anthroscore</a>
-    </p>
+     
+            <h4>How does AnthroScore work?</h4>
+             Given an entity in a text, we use a masked language model to compute the probability that the entity would be replaced by human pronouns versus non-human pronouns.
+            The log-ratio of these probabilities tells us how likely the entity is implicitly framed as human by the surrounding context!
+            <center><img width='20%'src="{{ url_for('static', filename='methodfig.svg') }}"/></center>
+            <h4>Our Findings</h4>
+            Motivated by concerns of misleading anthropomorphism in computer science discourse, we use AnthroScore to analyze 15 years of compputer science, statistics, and computational linguistics research papers and downstream news articles.
+            <ul><li> In research papers, we find that anthropomorphism has steadily increased over
+                time, and that papers related to NLP, language models, and audio/video models have the most
+                anthropomorphism.</li>
+            <li>Within ACL papers, temporal increases in anthropomorphism are correlated with key neural
+                advancements.</li><li> Building upon concerns of scientific misinformation in mass media, we identify higher levels of
+                    anthropomorphism in news headlines compared to the research papers they cite.</li></ul>
+            <p>Full paper: <a href="#" target="_blank">Coming soon</a></p>
+            <p>Source code: <a href="https://github.com/myracheng/AnthroScore" target="_blank">https://github.com/myracheng/AnthroScore</a>
+            </p>
+      
+   
 
-    <img src="{{ url_for('static', filename='methodfig.png') }}"/>
     
     <h3>Example Sentences</h3>
 <style type="text/css">
@@ -48,13 +54,15 @@
         <table class="tg">
         <thead>
           <tr>
-            <th class="tg-fymr">S↑: Sentences with high ANTHROSCORE (A &gt; 1) </th>
-            <th class="tg-0pky"><span style="font-weight:bold;font-style:normal">S↓: Sentences with low ANTHROSCORE (A &lt; −1)</span></th>
+            <th class="tg-fymr">S↑: Sentences with high AnthroScore (A &gt; 1) </th>
+            <th class="tg-0pky"><span style="font-weight:bold;font-style:normal">S↓: Sentences with low AnthroScore (A &lt; −1)</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="tg-0pky">• Catastrophic forgetting refers to the tendency that a neural <span style="font-weight:bold">network</span> "forgets" the previous learned knowledge upon learning new tasks.<br>• Meanwhile, anti-forensic attacks have been developed to fool these CNN-based forensic <span style="font-weight:bold">algorithms</span>.<br>• The <span style="font-weight:bold">models</span> demonstrated qualifications in various computer-related fields, such as cloud and virtualization, business analytics, cybersecurity, network setup...</td>
+            <td class="tg-0pky">• When a job arrives, the <b>system</b>
+                must decide whether to admit it or reject it, and if admitted, in which server
+                to schedule the job.<br>• Meanwhile, anti-forensic attacks have been developed to fool these CNN-based forensic <span style="font-weight:bold">algorithms</span>.<br>• The <span style="font-weight:bold">models</span> demonstrated qualifications in various computer-related fields, such as cloud and virtualization, business analytics, cybersecurity, network setup...</td>
             <td class="tg-0pky">• More and more users and developers are using Issue Tracking <span style="font-weight:bold">Systems</span> to report issues, including bugs, featurerequests, enhancement suggestions, etc.<br>• Our<span style="font-weight:bold"> approach</span> delivers forecast improvements over a competitive benchmark and we discover evidence for strong spatial interactions.<br>• To this end, for training the<span style="font-weight:bold"> model</span>, we convert the knowledge graph triples into reasonable and unreasonable texts.</td>
           </tr>
           <tr>
@@ -67,7 +75,7 @@
 
 <hr>
 
-
+<h3>Try it out!</h3>
 <div class="row justify-content-center">
     <div class="col-8">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -80,7 +88,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="entities" class="col-sm-2 col-form-label h1">Entities (coma separated)</label>
+                    <label for="entities" class="col-sm-2 col-form-label h1">Entities (comma separated)</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="entities" placeholder="Entities" value="system, model">
                     </div>
@@ -137,7 +145,7 @@ implicitly framed as human than as non-human</li></ul>
 
     $(function () {
         $("#submit-text").click(function () {
-            $("#output-text").html("ANTHROSCORE: Loading...")
+            $("#output-text").html("AnthroScore: Loading...")
             let text = $("#main-text").val()
             let entities = $("#entities").val()
 
@@ -146,7 +154,7 @@ implicitly framed as human than as non-human</li></ul>
                 url: "/predict",
                 data: {text: text, entities: entities},
                 success: function (data) {
-                    $("#output-text").html("ANTHROSCORE: " + data)
+                    $("#output-text").html("AnthroScore: " + data)
                 }
             });
         });
