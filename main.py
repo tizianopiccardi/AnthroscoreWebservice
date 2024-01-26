@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 from anthroscore import get_text_score
 
-# from anthroscore import get_text_score
+MAX_LENGTH = 1024*5
 
 app = Flask(__name__)
 CORS(app)
@@ -19,9 +19,9 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     text = request.form.get('text')
-    text = text[:1024]
+    text = text[:MAX_LENGTH]
     entities = request.form.get('entities')
-    entities = entities[:1024]
+    entities = entities[:MAX_LENGTH]
 
     entities = [e.strip()for e in entities.split(",")]
     score = get_text_score(text, entities)
