@@ -4,44 +4,95 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>AnthroScore: A Computational Linguistic Measure of Anthropomorphism</title>
+
+
+    <style type="text/css">
+
+        .logo {
+            float:right;
+            margin-top:5%;
+            /* margin-left: 5%; */
+
+        }
+        .jumbotron {
+            float:left;
+            padding-left:10%; padding-right:10%;
+        }</style>
 </head>
 <body>
 
 
 <div class="jumbotron">
-
+    <img class='logo' width='15%'src="{{ url_for('static', filename='stanfordnlp.png') }}"/>
     <h1 class="display-4">AnthroScore: A Computational Linguistic Measure of Anthropomorphism</h1>
     <i class="lead">Myra Cheng, Kristina Gligoric, Tiziano Piccardi, Dan Jurafsky</i>
+    <p>Accepted to EACL 2024 Main Conference</p>
     <hr class="my-4">
     <blockquote class="blockquote">
         <p class="small">Anthropomorphism, or the attribution of human-like characteristics to non-human entities, has
             shaped conversations about the impacts and possibilities of technology.
             We present AnthroScore, an automatic metric of implicit anthropomorphism in language. AnthroScore is
             lexicon-free and can be directly applied to a wide range of texts.</p>
-           
+            <p><a href="#" target="_blank">arXiv</a>, <a href="https://github.com/myracheng/AnthroScore" target="_blank">source code</a>
+            </p>
             
     </blockquote>
      
-            <h4>How does AnthroScore work?</h4>
-             Given an entity in a text, we use a masked language model to compute the probability that the entity would be replaced by human pronouns versus non-human pronouns.
-            The log-ratio of these probabilities tells us how likely the entity is implicitly framed as human by the surrounding context!
-            <center><img width='20%'src="{{ url_for('static', filename='methodfig.svg') }}"/></center>
-            <h4>Our Findings</h4>
-            Motivated by concerns of misleading anthropomorphism in computer science discourse, we use AnthroScore to analyze 15 years of compputer science, statistics, and computational linguistics research papers and downstream news articles.
-            <ul><li> In research papers, we find that anthropomorphism has steadily increased over
-                time, and that papers related to NLP, language models, and audio/video models have the most
-                anthropomorphism.</li>
-            <li>Within ACL papers, temporal increases in anthropomorphism are correlated with key neural
-                advancements.</li><li> Building upon concerns of scientific misinformation in mass media, we identify higher levels of
-                    anthropomorphism in news headlines compared to the research papers they cite.</li></ul>
-            <p>Full paper: <a href="#" target="_blank">Coming soon</a></p>
-            <p>Source code: <a href="https://github.com/myracheng/AnthroScore" target="_blank">https://github.com/myracheng/AnthroScore</a>
-            </p>
-      
-   
+
+<hr>
+
+<h3>Try it out!</h3>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+            <form>
+                <div class="form-group row">
+                    <label for="main-text" class="col-sm-2 col-form-label h1">Your text</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="main-text" rows="3" placeholder="Add your text here..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="entities" class="col-sm-2 col-form-label h1">Entities (comma separated)</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="entities" placeholder="Entities" value="system, model">
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-primary" id="submit-text">Compute AnthroScore</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="row justify-content-center" style="margin-top: 30px;">
+    <div class="col-8">
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="output-text">
+
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<h3>Score Interpretation</h3>
+        
+The score <i>A</i> implies that the entity is e<sup><i>A</i></sup> times more likely to be implicitly
+framed as human than as non-human in the context of the sentence (e is the log
+base), e.g.: <br>
+<ul><li><i>A</i> = 0 means that the entity is equally
+likely to be implicitly framed as either human or
+non-human</li><li><i>A</i> = 1 means
+that the entity is e<sup>1</sup> ≈ 2.7 times more likely to be
+implicitly framed as human than as non-human</li></ul> 
+
 
     
-    <h3>Example Sentences</h3>
+<h3>Example Sentences</h3>
 <style type="text/css">
         .tg  {border-collapse:collapse;border-spacing:0;}
         .tg td{border-color:black;border-style:solid;border-width:1px;
@@ -66,72 +117,62 @@
             <td class="tg-0pky">• More and more users and developers are using Issue Tracking <span style="font-weight:bold">Systems</span> to report issues, including bugs, featurerequests, enhancement suggestions, etc.<br>• Our<span style="font-weight:bold"> approach</span> delivers forecast improvements over a competitive benchmark and we discover evidence for strong spatial interactions.<br>• To this end, for training the<span style="font-weight:bold"> model</span>, we convert the knowledge graph triples into reasonable and unreasonable texts.</td>
           </tr>
           <tr>
-            <td class="tg-0pky">• Large language <span style="font-weight:bold">models</span> don’t actually think and tend to make elementary mistakes, even make things up.<br>• The <span style="font-weight:bold">algorithms</span> also picked up on racial biases linking Black people to weapons.<br>• The AI <span style="font-weight:bold">system</span> was able to defeat human players in. . .</td>
-            <td class="tg-0pky">• Microsoft is betting heavily on integrating OpenAI’s GPT language <span style="font-weight:bold">models</span> into its products to compete with Google.<br>• Deepmind has been the pioneer in making AI <span style="font-weight:bold">models</span> that have the capability to mimic a human’s cognitive. . .<br>• For workers who use machine-learning <span style="font-weight:bold">models</span> to help them make decisions, knowing when to. . .</td>
+            <td class="tg-0pky">• Large language <span style="font-weight:bold">models</span> don’t actually think and tend to make elementary mistakes, even make things up.<br>• The <span style="font-weight:bold">algorithms</span> also picked up on racial biases linking Black people to weapons.<br>• The AI <span style="font-weight:bold">system</span> was able to defeat human players in...</td>
+            <td class="tg-0pky">• Microsoft is betting heavily on integrating OpenAI’s GPT language <span style="font-weight:bold">models</span> into its products to compete with Google.<br>• Deepmind has been the pioneer in making AI <span style="font-weight:bold">models</span> that have the capability to mimic a human’s cognitive...<br>• For workers who use machine-learning <span style="font-weight:bold">models</span> to help them make decisions, knowing when to...</td>
           </tr>
         </tbody>
         </table>
    
+<br><br>
+
+<h3>How does AnthroScore work?</h3>
+Given an entity in a text, we use RoBERTa (a masked language model) to compute the probability that the entity would be replaced by human pronouns versus non-human pronouns.
+The log-ratio of these probabilities can be interpreted as how likely the entity is implicitly framed as human by the surrounding context.
+<center><img width='45%'src="{{ url_for('static', filename='methodfig.svg') }}"/></center>
+
+
+<h3>Our Findings</h3>
+Motivated by concerns of misleading anthropomorphism, we use AnthroScore to analyze 15 years of computer science, statistics, and computational linguistics research papers and downstream news articles.
+<ul><li> Papers related to NLP & language models have the most
+    anthropomorphism.</li>
+<li>Within ACL papers, temporal increases in anthropomorphism are correlated with key neural
+    advancements.
+</li><li>Building upon concerns of scientific misinformation in mass media, news headlines have more anthropomorphism than the research papers they cite.</li></ul>
+<center><img width='45%'src="{{ url_for('static', filename='temporal_combined_labeled_sing.svg') }}"/></center>
+Check out the <a href="TODO">full paper</a> for more details!
+<br><br>
 
 <hr>
+<h5>Citation:</h5>
+Myra Cheng, Kristina Gligoric, Tiziano Piccardi, and Dan Jurafsky. 2024. AnthroScore: A Computational Linguistic Measure of Anthropomorphism.  In Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics, Malta. Association for Computational Linguistics.
+<br><br>
 
-<h3>Try it out!</h3>
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
-            <form>
-                <div class="form-group row">
-                    <label for="main-text" class="col-sm-2 col-form-label h1">Your text</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" id="main-text" rows="3" placeholder="Add your text here..."></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="entities" class="col-sm-2 col-form-label h1">Entities (comma separated)</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="entities" placeholder="Entities" value="system, model">
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <button type="button" class="btn btn-primary" id="submit-text">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-</div>
-
-<div class="row justify-content-center" style="margin-top: 30px;">
-    <div class="col-8">
-        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="output-text">
-
-        </div>
-    </div>
-
-</div>
+<h5>BibTeX:</h5>
+<code>
+@inproceedings{cheng-etal-2024-anthroscore,
+    title = "{A}nthro{S}core: A Computational Linguistic Measure of Anthropomorphism",
+    author = "Cheng, Myra  and
+      Gligoric, Kristina  and
+      Piccardi, Tiziano and
+      Jurafsky, Dan",
+    booktitle = "Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics",
+    month = march,
+    year = "2024",
+    address = "Malta",
+    publisher = "Association for Computational Linguistics"
+}
+</code>
 
 
-<h3>Score Interpretation</h3>
-        
-The score <i>A</i> implies that the entity is e<sup><i>A</i></sup> times more likely to be implicitly
-framed as human than as non-human in the context of the sentence (e is the log
-base), e.g.: <br>
-<ul><li><i>A</i> = 0 means that the entity is equally
-likely to be implicitly framed as either human or
-non-human</li><li><i>A</i> = 1 means
-that the entity is e<sup>1</sup> ≈ 2.7 times more likely to be
-implicitly framed as human than as non-human</li></ul> 
-
-<div id="response" style="margin-left: 200px; margin-right: 200px">
+<!-- <div id="response" style="margin-left: 200px; margin-right: 200px">
     <div id="predict_topic_response" class="alert alert-primary" role="alert"
          style="display: none; margin-top: 30px; "></div>
     <div id="topics_distribution_response" class="alert alert-light" role="alert" style="margin-top: 30px;">
         <canvas id="topics_barplot" height="300"></canvas>
     </div>
+</div> -->
+
 </div>
-
-
 <hr>
 
 <br>
