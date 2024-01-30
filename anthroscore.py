@@ -193,7 +193,7 @@ def main():
 
 
 
-    if len(args.input_text) > 0:
+    if args.input_text is not None:
         score = get_text_score(args.input_text, entities, args.output_sentence_file)
 
         print('Average AnthroScore in text: %.3f'%(score))
