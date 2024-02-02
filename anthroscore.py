@@ -3,33 +3,7 @@ This script computes AnthroScore for a set of entities in a set of texts. It
 results in (1) an output file with AnthroScore for each text, and (2) an 
 output file containing all sentences from the texts with AnthroScores.
 
-EXAMPLE USAGE: 
-To obtain AnthroScore for the terms "model" and "system" in the text 
-    "I love this model. I hate this system.":
-
-    python get_anthroscore.py --input_text "I love this model. I hate this system." \
-        --entities system model \
-        --output_sentence_file sentence_scores.csv
-
-To obtain AnthroScores for the terms "model" and "system" in 
-abstracts from examples/acl_50.csv (a subset of ACL Anthology papers):
-
-    python get_anthroscore.py --input_file example/acl_50.csv \
-        --text_column_name abstract --entities system model \
-
-Optionally, you can specify the output file locations, and also the 
-identifier for each text
-
-    python get_anthroscore.py --input_file example/acl_50.csv \
-        --text_column_name abstract --entities system model \
-        --output_sentence_file example/result_sentences.csv \
-            --output_file example/results.csv --text_id_name acl_id
-
-You can also list the entities in a separate .txt file instead, 
-specified by the argument --entity_filename
-
-    python get_anthroscore.py --input_file example/acl_50.csv \
-            --text_column_name abstract --entity_filename example/entities.txt
+See https://github.com/myracheng/anthroscore
 
 """
 
@@ -219,7 +193,7 @@ def main():
 
 
 
-    if len(args.input_text) > 0:
+    if args.input_text is not None:
         score = get_text_score(args.input_text, entities, args.output_sentence_file)
 
         print('Average AnthroScore in text: %.3f'%(score))
